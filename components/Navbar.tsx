@@ -39,7 +39,7 @@ function Navbar() {
                   <img className="bg-auto h-10 w-10 " src="/logo.png"></img>
                 </div>
                 <h1 className=" font-bold text-xl cursor-pointer">
-                  <span className="text-textblue ">FIN SWAP</span>
+                  <span className="text-textblue ml-3">Dashboard</span>
                 </h1>
               </div>
               <div className="hidden md:block">
