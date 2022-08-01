@@ -39,7 +39,7 @@ function Navbar() {
                   <img className="bg-auto h-10 w-10 " src="/logo.png"></img>
                 </div>
                 <h1 className=" font-bold text-xl cursor-pointer">
-                  <span className="text-textblue ">FIN SWAP</span>
+                  <span className="text-textblue ">ginosis</span>
                 </h1>
               </div>
               <div className="hidden md:block">
@@ -51,10 +51,10 @@ function Navbar() {
                     Home
                   </Link>
                   <Link
-                    href="/swap"
+                    href="/Transactions"
                     className="cursor-pointer hover:bg-blue-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
                   >
-                    add
+                    Transactions
                   </Link>
                  
                  
