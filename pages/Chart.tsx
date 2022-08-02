@@ -4,7 +4,7 @@ import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'r
 export default () => {
   const data = [
     {
-      name: 'Page A',
+      date: '2020-0',
       uv: 4000,
       pv: 2400,
       amt: 2400,
@@ -68,7 +68,7 @@ export default () => {
                 <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
               </linearGradient>
             </defs>
-            <XAxis dataKey="name" />
+            <XAxis dataKey="date" />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
