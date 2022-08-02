@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import {Modal, Button} from 'antd';
+import 'antd/dist/antd.css';
 
 type ConfirmationsDetails = {
   owner: string;
@@ -16,6 +18,7 @@ type Obytype = {
   transfers: string;
 };
 const Transactions = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
   const [ob, setOb] = useState([
     {
       safe: '0x19B3Eb3Af5D93b77a5619b047De0EED7115A19e7',
@@ -167,27 +170,41 @@ const Transactions = () => {
     },
   ]);
 
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
   return (
     <div>
       Home
       {ob.map((e) => {
         return (
-          <div>
-            <div key={e.safe}>
-              <h1>Receiver: {e.to}</h1>
-              <h1>
-                {e.confirmations.map((item) => {
-                  return (
-                    <div>
-                      <h1> confirmations detail </h1>
-                      <h1>owner: {item.owner}</h1>
-                      <h1>{item.submissionDate.slice(0, 10)}</h1>
-                    </div>
-                  );
-                })}
-              </h1>
-              <h1>{e.confirmations.length}</h1>
-            </div>
+          <div key={e.safe}>
+            <h1>Receiver: {e.to}</h1>
+            <Button type="primary" onClick={showModal}>
+              Signer Info
+            </Button>
+            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
+                <h1>
+                  confirmations detail
+                  {e.confirmations.map((item) => {
+                    return (
+                      <div>
+                        <h1>owner: {item.owner}</h1>
+                        <h1>{item.submissionDate.slice(0, 10)}</h1>
+                      </div>
+                    );
+                  })}
+                </h1>
+            </Modal>
           </div>
         );
       })}
