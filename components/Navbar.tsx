@@ -6,22 +6,15 @@ import * as ethers from 'ethers';
 import Image from 'next/image';
 import Logo from '../public/fin-logo.png';
 import { Button } from 'react-scroll';
-
+import SearchBar from './Searchbar';
 
 function Navbar() {
-
   const [isOpen, setIsOpen] = useState(false);
 
-
-  const loadAccountData = async () => {
-
-  };
+  const loadAccountData = async () => {};
 
   useEffect(() => {
-  
-
-      loadAccountData();
-    
+    loadAccountData();
   }, []);
   return (
     <div>
@@ -42,6 +35,9 @@ function Navbar() {
                   <span className="text-textblue ">ginosis</span>
                 </h1>
               </div>
+              <div>
+                <SearchBar />
+              </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
                   <Link
@@ -56,8 +52,6 @@ function Navbar() {
                   >
                     Transactions
                   </Link>
-                 
-                 
                 </div>
               </div>
             </div>
@@ -122,8 +116,6 @@ function Navbar() {
                 >
                   add
                 </Link>
-
-               
               </div>
             </div>
           )}
