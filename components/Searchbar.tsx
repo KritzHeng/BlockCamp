@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Input } from 'antd';
+import {getDaosAddress} from '../contants/daoProject';
 
 const SearchBar = () => {
   const [addressInput, setAddreesInput] = useState<string | null>(null);
@@ -9,7 +10,15 @@ const SearchBar = () => {
 
   const onSearch = (value: any) => {
     console.log(value);
-    window.location.href = './Transactions/'+value;
+    if(value.length > 0){
+      if(value.split(0,3) == "0x"){
+        window.location.href = './?address='+value;
+      }
+      else{
+        window.location.href = './?address='+getDaosAddress(value.toLowerCase());
+      }
+      
+    }
   }
 
   return (
