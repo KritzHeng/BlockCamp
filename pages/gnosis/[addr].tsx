@@ -1,27 +1,3 @@
-// import { useRouter } from 'next/router'
-// export default function Transactions({ transactiondetails }){
-//     return(
-//         <div>
-//             {}
-//         </div>
-//     )
-// }
-
-// // export async function  getStaticPaths(){
-// //     // const addr = await fetch('').then((res) => res.json());
-// //     const addr = addrs.map(item => {
-// //         return{
-// //             paths: return{
-// //                 params:{
-// //                     id: item
-
-// //                 }
-// //             }
-// //         }
-// //     )
-
-// // }
-
 import { useRouter, NextRouter } from 'next/router';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 
@@ -37,9 +13,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
 export const getStaticProps = async ({ params }: any) => {
   // const transactiondetails = await fetch('0x1234' + params.addr).then((r) => r.json());
   const res = await fetch('http://blockcamp-api.lt.airin1.com/gnosis/transactions/' + params.addr).then((res) => res.json());
-  // console.log(res)
+  console.log(res)
   return {
-    props: {res: res.data},
+    props: {res: res},
   };
 };
 // interface Props {
@@ -50,12 +26,12 @@ const Gnosis: NextPage = ({ res }) => {
   console.log(res)
 
   return (
-    <div>
+    <div key={res.id}>
       <h1>{res.length}</h1>
-      {res.slice(0,5).map((item) =>{
+      {res.slice(0,100).map((item) =>{
         return(
-          <div key={item.id}>
-              <h1>Receiver: {item.to}</h1>
+          <div>
+              <h1>txHash: {item.txHash}</h1>
               <h1>blockNumber: {item.blockNumber}</h1>
           
               {item.confirmations && <h1>{item.confirmations.length}</h1> }
@@ -72,21 +48,7 @@ const Gnosis: NextPage = ({ res }) => {
           </div>
         )
       })}
-            {/* <div key={res.safe}>
-              <h1>Receiver: {res.to}</h1> */}
-              {/* <h1>
-                {res.confirmations.map((item) => {
-                  return (
-                    <div>
-                      <h1> confirmations detail </h1>
-                      <h1>owner: {item.owner}</h1>
-                      <h1>{item.submissionDate.slice(0, 10)}</h1>
-                    </div>
-                  );
-                })}
-              </h1> */}
-              {/* <h1>{res.confirmations.length}</h1> */}
-            {/* </div> */}
+
     </div>
   );
 };

@@ -32,7 +32,7 @@ function Navbar() {
                   <img className="bg-auto h-10 w-10 " src="/logo.png"></img>
                 </div>
                 <h1 className=" font-bold text-xl cursor-pointer">
-                  <span className="text-textblue ">ginosis</span>
+                  <span className="text-textblue ">Gnosis</span>
                 </h1>
               </div>
               <div>
