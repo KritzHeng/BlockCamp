@@ -9,8 +9,8 @@ const SearchBar = () => {
 
   const onSearch = (value: any) => {
     console.log(value);
+    window.location.href = './Transactions/'+value;
   }
-
 
   return (
     <div>
