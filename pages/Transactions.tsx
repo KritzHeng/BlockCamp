@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import {Modal, Button} from 'antd';
+import {Modal, Button, Row, Col, Avatar} from 'antd';
 import 'antd/dist/antd.css';
+import { UserOutlined } from '@ant-design/icons';
 
 type ConfirmationsDetails = {
   owner: string;
@@ -19,6 +20,7 @@ type Obytype = {
 };
 const Transactions = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [viewMore, setViewMore] = useState(false);
   const [ob, setOb] = useState([
     {
       safe: '0x19B3Eb3Af5D93b77a5619b047De0EED7115A19e7',
@@ -184,26 +186,35 @@ const Transactions = () => {
 
   return (
     <div>
-      Home
       {ob.map((e) => {
         return (
           <div key={e.safe}>
             <h1>Receiver: {e.to}</h1>
-            <Button type="primary" onClick={showModal}>
-              Signer Info
-            </Button>
-            <Modal title="Basic Modal" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel}>
-                <h1>
-                  confirmations detail
+            <Button shape="circle" type="primary" onClick={showModal} icon={<UserOutlined />}/>
+            <Modal 
+              title={e.confirmations.length+" Signers "+e.confirmationsRequired+" Required"} 
+              visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={800}
+            >
                   {e.confirmations.map((item) => {
                     return (
-                      <div>
-                        <h1>owner: {item.owner}</h1>
-                        <h1>{item.submissionDate.slice(0, 10)}</h1>
-                      </div>
+                      <Row style={{paddingBlock: '25px'}}>
+                        <Col span={6} style={{textAlign: 'right', paddingRight: '30px'}}>
+                          <Avatar size={64} icon={<UserOutlined />}/>
+                        </Col>
+                        <Col span={18}>
+                          <div>
+                            <h1>Owner: {item.owner}</h1>
+                            <h1>Date: {item.submissionDate.slice(0, 10)}</h1>
+                            <h1>
+                              Signature: {viewMore ? item.signature:item.signature.slice(0,40)+"..."}
+                              <a onClick={()=>setViewMore(true)}>{viewMore ? "":"view more"}</a>
+                            </h1>
+                            <h1>Signature Type: {item.signatureType}</h1>
+                          </div>
+                        </Col>
+                      </Row>
                     );
                   })}
-                </h1>
             </Modal>
           </div>
         );
