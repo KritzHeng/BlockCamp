@@ -34,11 +34,11 @@ const Gnosis: NextPage = ({ res }) => {
               <h1>txHash: {item.txHash}</h1>
               <h1>blockNumber: {item.blockNumber}</h1>
           
-              {item.confirmations && <div><h1>{item.confirmations.length}
+              {/*item.confirmations && <div><h1>{item.confirmations.length}
               
               </h1>
               {item.confirmations.map(e=>())}
-              </div> }
+        </div> */}
 
               {/* <h1>{item.confirmations.length}</h1> */}
               {/* {item.confirmations.map((con) => {
