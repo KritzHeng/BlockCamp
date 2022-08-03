@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import 'antd/dist/antd.css';
 import { Input } from 'antd';
 import {getDaosAddress} from '../contants/daoProject';
+import styled from 'styled-components';
 
 const SearchBar = () => {
   const [addressInput, setAddreesInput] = useState<string | null>(null);
@@ -21,14 +22,26 @@ const SearchBar = () => {
     }
   }
 
+  const RoundSearch = styled(Input.Search)`
+    .ant-input {
+      border-color: #fa5036;
+      
+    }
+
+    .ant-btn {
+      border-color: #fa5036;
+    }
+  `;
+
   return (
     <div>
       <div className="items-center px-4 flex justify-center">
-        <Search
+        <RoundSearch
           placeholder="search address name or address"
           onSearch={onSearch}
           style={{
             width: 500,
+            borderRadius: "50px",
           }}
         />
       </div>

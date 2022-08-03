@@ -16,7 +16,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }: any) => {
   // const transactiondetails = await fetch('0x1234' + params.addr).then((r) => r.json());
-  const res = await fetch('http://blockcamp-api.lt.airin1.com/gnosis/transactions/' + params.addr).then((res) => res.json());
+  const res = await fetch('https://blockcamp-api.chom.dev:2053/gnosis/transactions/' + params.addr).then((res) => res.json());
   console.log(res)
   return {
     props: {res: res},
