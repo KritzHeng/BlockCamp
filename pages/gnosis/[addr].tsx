@@ -150,14 +150,20 @@ const Gnosis: NextPage = ({ res }) => {
 
   useEffect(() => {
     for (var i = 0; i < 100; i++) {
+      // console.log(ob[i].transactionHash);
       console.log(res[i].transactionHash);
+      // if(typeof ob[i] !== undefined){
       if(typeof res[i] !== undefined){
         const temp = { 
           key: res[i].transactionHash,
           date: res[i].executionDate,
+          // key: ob[i].transactionHash,
+          // date: ob[i].executionDate,
           activity: 'test',
           address: res[i].to,
           addresstype: res[i],
+          // address: ob[i].to,
+          // addresstype: ob[i],
           transfer: 'test',
           tags: ['cat', 'giraffe'],
           remark: 'test',
@@ -173,8 +179,10 @@ const Gnosis: NextPage = ({ res }) => {
   }, [data]);
 
   return (
+    // <div >
     <div key={res.id}>
       <h1>{res.length}</h1>
+      {/* <h1>{ob.length}</h1> */}
       <Table columns={columns} dataSource={data} style={{padding: "40px"}}/>
       <Modal 
         title={currModalInfo?.length+" Signers "+currModalInfo?.required+" Required"} 
