@@ -17,6 +17,7 @@ const HomeModule = () => {
     {
       title: 'Name',
       dataIndex: 'name',
+      sorter: (a, b) => a.name.localeCompare(b.name),
     },
     {
       title: 'Treasury',
@@ -33,6 +34,7 @@ const HomeModule = () => {
     {
       title: 'Proposal',
       dataIndex: 'proposal',
+      sorter: (a, b) => a.proposal - b.proposal,
     },
     {
       title: 'Votes',
@@ -64,7 +66,7 @@ const HomeModule = () => {
       treasury : "$3.5B",
       H24 : "+1.1%",
       acitivemembers : "3.3K",
-      proposal : "89",
+      proposal : "91",
       votes: "45.5K",
     },
 
@@ -77,7 +79,7 @@ const HomeModule = () => {
       treasury : "$3.5B",
       H24 : "+1.1%",
       acitivemembers : "3.3K",
-      proposal : "89",
+      proposal : "90",
       votes: "45.5K",
     },
   ];
@@ -115,7 +117,7 @@ const HomeModule = () => {
             onClick: () => (console.log('sdfsf'))
           })} /> */}
           
-<Table columns={columns} dataSource={[item]} size="middle" onRow={(r) => ({
+          <Table columns={columns} dataSource={[item]} size="middle" onRow={(r) => ({
             onClick: () => (window.location.href = ''+r.url)
           })} />
                 {/* </Link> */}
