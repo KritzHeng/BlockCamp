@@ -1,11 +1,9 @@
 import { useRouter, NextRouter } from 'next/router';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import React, { useEffect, useState } from 'react';
-import {Card, Row, Col, Table} from 'antd';
-import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
-
-import { getDaosAddress } from "../../contants/daoProject"
-
+import {Card, Row, Col, Table, Avatar, Tooltip} from 'antd';
+import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Legend } from 'recharts';
+import styled from 'styled-components';
 import { getTokenAddress } from '../../contants/mapToken';
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -1569,21 +1567,46 @@ const Overview: NextPage = ({ res }) => {
     setData([...data, temp]);
   }, []);
 
+  const StyledTable = styled(Table)`
+    .ant-table-thead > tr > th{
+      color: #fa5036;
+    }
+  `;
+
   return(
-    <div style={{padding: "50px"}}>      
-      <a onClick={() => 
-        window.open("https://etherscan.io/token/" + getTokenAddress(name))}
-        style={{fontSize: "20px"}}
-      >
-        {name}
-      </a>
-      <p>{description}</p>
-      <h2>Revenue Model Of</h2>
+    <div>
+      <Row align="middle" style={{height: "300px", paddingInline:"200px",backgroundImage: "url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIHZpZXdCb3g9IjAgMCAxIDEiIHByZXNlcnZlQXNwZWN0UmF0aW89Im5vbmUiPgo8bGluZWFyR3JhZGllbnQgaWQ9Imc1NTgiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIiB4MT0iMCUiIHkxPSIwJSIgeDI9IjEwMCUiIHkyPSIxMDAlIj4KPHN0b3Agc3RvcC1jb2xvcj0iI0ZBNTAzNiIgb2Zmc2V0PSIwIi8+PHN0b3Agc3RvcC1jb2xvcj0iI0UzOUYwMCIgb2Zmc2V0PSIxIi8+CjwvbGluZWFyR3JhZGllbnQ+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZzU1OCkiIC8+Cjwvc3ZnPg==)"}}>
+        <Col flex="200px">
+          <Avatar size={200} style={{marginRight: "20px"}}/>
+        </Col>
+        <Col span={18}>
+          <Card
+            style={{
+              border: 0,
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            }}
+          >
+            <Tooltip title="prompt text">
+              <h1
+              onClick={() => 
+                window.open("https://etherscan.io/token/" + getTokenAddress(name))
+              }
+              style={{fontSize: "30px", color: "#fff"}}
+              >
+                {name}
+              </h1>
+            </Tooltip>
+            <p style={{fontSize: "12", color: "#fff"}}>{description}</p>
+          </Card>
+        </Col>
+      </Row>
+    <div style={{paddingInline: "200px", paddingBlock: "50px", backgroundColor: "#fff7f8"}}> 
+      <h2 style={{fontSize: "20px"}}>Revenue Model Of</h2>
       <Row>
-          <Col span={12} style={{paddingRight: "20px"}}>
-              <Card>Placeholder</Card>
+          <Col flex="300px" style={{paddingRight: "20px"}}>
+              <Card style={{height: "100%"}}>Placeholder</Card>
           </Col>
-          <Col span="auto">
+          <Col flex="auto">
               <Card>
               <div>
       {
@@ -1615,10 +1638,11 @@ const Overview: NextPage = ({ res }) => {
               </Card>
           </Col>
       </Row>
-      <h2>Treasury Addresses</h2>
-      <Table columns={columns} dataSource={data} size="middle" onRow={(r) => ({
+      <h2 style={{fontSize: "20px", paddingTop: "50px"}}>Treasury Addresses</h2>
+      <StyledTable columns={columns} dataSource={data} size="middle" onRow={(r) => ({
             onClick: () => (window.location.href = '/gnosis/'+ r.address)
           })} />
+    </div>
     </div>
   );
 };

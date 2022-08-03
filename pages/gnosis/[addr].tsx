@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import {Modal, Button, Row, Col, Avatar, Table, Tag, Space} from 'antd';
 import 'antd/dist/antd.css';
 import { UserOutlined } from '@ant-design/icons';
+import styled from 'styled-components';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -178,12 +179,18 @@ const Gnosis: NextPage = ({ res }) => {
     console.log(data);
   }, [data]);
 
+  const StyledTable = styled(Table)`
+    .ant-table-thead > tr > th{
+      color: #fa5036;
+    }
+  `;
+
   return (
     // <div >
     <div key={res.id}>
       <h1>{res.length}</h1>
       {/* <h1>{ob.length}</h1> */}
-      <Table columns={columns} dataSource={data} style={{padding: "40px"}}/>
+      <StyledTable columns={columns} dataSource={data} style={{padding: "40px"}}/>
       <Modal 
         title={currModalInfo?.length+" Signers "+currModalInfo?.required+" Required"} 
         visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={800}
