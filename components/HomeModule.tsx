@@ -48,6 +48,7 @@ const HomeModule = () => {
       key: '1',
       logo: 'https://uniswap.org/images/twitter-card.jpg',
       name: 'Uniswap',
+      url: 'overviewpage/uniswap',
       treasury : "$3.5B",
       H24 : "+1.1%",
       acitivemembers : "3.3K",
