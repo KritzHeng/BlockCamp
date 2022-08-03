@@ -3,7 +3,7 @@ import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { addr: '' } }, { params: { addr: '0x123' } }, { params: { addr: '0x19B3Eb3Af5D93b77a5619b047De0EED7115A19e7' } }],
+    paths: [{ params: { addr: '' } }, { params: { addr: '0x10A19e7eE7d7F8a52822f6817de8ea18204F2e4f' } }, { params: { addr: '0x19B3Eb3Af5D93b77a5619b047De0EED7115A19e7' } }],
     fallback: false, // fallback is set to false because we already know the slugs ahead of time
   };
 };
@@ -34,7 +34,12 @@ const Gnosis: NextPage = ({ res }) => {
               <h1>txHash: {item.txHash}</h1>
               <h1>blockNumber: {item.blockNumber}</h1>
           
-              {item.confirmations && <h1>{item.confirmations.length}</h1> }
+              {item.confirmations && <div><h1>{item.confirmations.length}
+              
+              </h1>
+              {item.confirmations.map(e=>())}
+              </div> }
+
               {/* <h1>{item.confirmations.length}</h1> */}
               {/* {item.confirmations.map((con) => {
                   return (

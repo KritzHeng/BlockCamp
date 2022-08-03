@@ -40,18 +40,6 @@ function Navbar() {
               </div>
               <div className="hidden md:block">
                 <div className="ml-10 flex items-baseline space-x-4">
-                  <Link
-                    href="/"
-                    className="cursor-pointer text-blue-600 font-semibold px-3 py-2 text-md hover:font-black"
-                  >
-                    Home
-                  </Link>
-                  <Link
-                    href="/gnosis"
-                    className="cursor-pointer hover:bg-blue-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
-                  >
-                    Gnosis
-                  </Link>
                 </div>
               </div>
             </div>
