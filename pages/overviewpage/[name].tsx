@@ -1573,7 +1573,7 @@ const Overview: NextPage = ({ res }) => {
           <Col span={12} style={{paddingRight: "20px"}}>
               <Card>Placeholder</Card>
           </Col>
-          <Col span={12}>
+          <Col span="auto">
               <Card>
               <div>
       {

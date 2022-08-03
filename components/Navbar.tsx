@@ -12,12 +12,23 @@ function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   const loadAccountData = async () => {};
+  const [isReady, setIsReady] = useState(false)
+
+  useEffect(() => {
+    setIsReady(true)
+  }, [])
 
   useEffect(() => {
     loadAccountData();
   }, []);
   return (
     <div>
+      {
+        isReady && (
+  
+         
+  <div>
+
       {/* <nav className=" shadow-sm fixed w-full z-10">
         <div className="w-full">
           <div className="flex items-center h-20 w-full">
@@ -27,20 +38,23 @@ function Navbar() {
         <div className="w-full">
           <div className="flex items-center h-20 w-full">
             <div className="flex items-center  mx-20  justify-between w-full">
-              <div className="flex justify-center items-center flex-shrink-0 ">
-                <div>
-                  <img className="bg-auto h-10 w-10 " src="/logo.png"></img>
+              <Link
+                href="/"
+                className="cursor-pointer hover:bg-blue-600 text-black hover:text-white px-3 py-2 rounded-md text-sm font-medium"
+              >
+                <div className="flex justify-center items-center flex-shrink-0 ">
+                  <div>
+                    <img className="h-44 w-44 " src="/logo.png"></img>
+                  </div>
+                  {/* <h1 className=" font-bold text-xl cursor-pointer">
+                    <span className="text-textblue ">Gnosis</span>
+                  </h1> */}
                 </div>
-                <h1 className=" font-bold text-xl cursor-pointer">
-                  <span className="text-textblue ">Gnosis</span>
-                </h1>
-              </div>
-              <div>
+              </Link>
+          
                 <SearchBar />
-              </div>
               <div className="hidden md:block">
-                <div className="ml-10 flex items-baseline space-x-4">
-                </div>
+                <div className="ml-10 flex items-baseline space-x-4"></div>
               </div>
             </div>
             <div className="mr-10 flex md:hidden ">
@@ -109,8 +123,13 @@ function Navbar() {
           )}
         </Transition>
       </nav>
-    </div>
-  );
+      </div>
+
+   )
+  }
+    
+  </div>
+);
 }
 
 export default Navbar;
