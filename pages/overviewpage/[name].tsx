@@ -1561,7 +1561,7 @@ const Overview: NextPage = ({ res }) => {
     setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
     const temp = {
       key: '1',
-      address: '0x10A19e7eE7d7F8a52822f6817de8ea18204F2e4f',
+      address: '0x19B3Eb3Af5D93b77a5619b047De0EED7115A19e7',
       type: 'liquid',
       value: '$40M',
       chain: 'Ethereum',
@@ -1616,7 +1616,9 @@ const Overview: NextPage = ({ res }) => {
           </Col>
       </Row>
       <h2>Treasury Addresses</h2>
-      <Table columns={columns} dataSource={data}/>
+      <Table columns={columns} dataSource={data} size="middle" onRow={(r) => ({
+            onClick: () => (window.location.href = '/gnosis/'+ r.address)
+          })} />
     </div>
   );
 };
