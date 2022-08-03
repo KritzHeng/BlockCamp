@@ -18,35 +18,25 @@ const HomeModule = () => {
       title: 'Name',
       dataIndex: 'name',
     },
-    // {
-    //   title: 'Address',
-    //   dataIndex: 'address',
-    //   render: (text) => <a onClick={(event) => onChoose(event, text)}>{text}</a>,
-    // },
     {
       title: 'Treasury',
       dataIndex: 'treasury',
-      // render: (text) => <a onClick={(event) => onChoose(event, text)}>{text}</a>,
     },
     {
       title: 'H24',
       dataIndex: 'H24',
-      // render: (text) => <a onClick={(event) => onChoose(event, text)}>{text}</a>,
     },
     {
       title: 'Acitive',
       dataIndex: 'acitivemembers',
-      // render: (text) => <a>{text}<br/><a>members/a></a>,
     },
     {
       title: 'Proposal',
       dataIndex: 'proposal',
-      // render: (text) => <a onClick={(event) => onChoose(event, text)}>{text}</a>,
     },
     {
       title: 'Votes',
       dataIndex: 'votes',
-      // render: (text) => <a onClick={(event) => onChoose(event, text)}>{text}</a>,
     },
   ];
 
