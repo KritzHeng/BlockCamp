@@ -1,5 +1,6 @@
 import '../styles/globals.css';
 import Navbar from '../components/Navbar';
+import '../styles/custom-tree.css';
 
 import type { AppProps } from 'next/app';
 
