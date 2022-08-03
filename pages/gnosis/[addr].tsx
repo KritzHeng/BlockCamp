@@ -156,7 +156,7 @@ const Gnosis: NextPage = ({ res }) => {
           key: res[i].transactionHash,
           date: res[i].executionDate,
           activity: 'test',
-          address: '0x...',
+          address: res[i].to,
           addresstype: res[i],
           transfer: 'test',
           tags: ['cat', 'giraffe'],
