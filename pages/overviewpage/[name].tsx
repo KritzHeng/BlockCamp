@@ -1,10 +1,11 @@
 import { useRouter, NextRouter } from 'next/router';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import React, { useEffect, useState } from 'react';
-import {Card, Row, Col, Table, Avatar, Tooltip} from 'antd';
+import {Card, Row, Col, Table, Avatar, Tooltip, } from 'antd';
 import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Legend } from 'recharts';
 import styled from 'styled-components';
 import { getTokenAddress } from '../../contants/mapToken';
+import {LinkOutlined} from '@ant-design/icons';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -1591,9 +1592,9 @@ const Overview: NextPage = ({ res }) => {
               onClick={() => 
                 window.open("https://etherscan.io/token/" + getTokenAddress(name))
               }
-              style={{fontSize: "30px", color: "#fff"}}
+              style={{fontSize: "30px", color: "#fff", textDecoration: "underline"}}
               >
-                {name}
+                {name}<LinkOutlined  style={{ fontSize: '20px' , marginBottom: '5px'}} />
               </h1>
             </Tooltip>
             <p style={{fontSize: "12", color: "#fff"}}>{description}</p>
