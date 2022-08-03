@@ -1,53 +1,40 @@
+import { useRouter, NextRouter } from 'next/router';
+import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import React, { useEffect, useState } from 'react';
+import {Card, Row, Col, Table} from 'antd';
 import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-export default () => {
-  // const data = [
-  //   {
-  //     date: '2020-0',
-  //     uv: 4000,
-  //     pv: 2400,
-  //     amt: 2400,
-  //   },
-  //   {
-  //     name: 'Page B',
-  //     uv: 3000,
-  //     pv: 1398,
-  //     amt: 2210,
-  //   },
-  //   {
-  //     name: 'Page C',
-  //     uv: 2000,
-  //     pv: 9800,
-  //     amt: 2290,
-  //   },
-  //   {
-  //     name: 'Page D',
-  //     uv: 2780,
-  //     pv: 3908,
-  //     amt: 2000,
-  //   },
-  //   {
-  //     name: 'Page E',
-  //     uv: 1890,
-  //     pv: 4800,
-  //     amt: 2181,
-  //   },
-  //   {
-  //     name: 'Page F',
-  //     uv: 2390,
-  //     pv: 3800,
-  //     amt: 2500,
-  //   },
-  //   {
-  //     name: 'Page G',
-  //     uv: 3490,
-  //     pv: 4300,
-  //     amt: 2100,
-  //   },
-  // ];
+import { getDaosAddress } from "../../contants/daoProject"
 
-  const data = [
+import { getTokenAddress } from '../../contants/mapToken';
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  return {
+    paths: [{ params: { name: 'sushiswap'} }, { params: { name: 'balancer' } }, { params: { name: '' } }],
+    fallback: false, // fallback is set to false because we already know the slugs ahead of time
+  };
+};
+export const getStaticProps = async ({ params }: any) => {
+  // const transactiondetails = await fetch('0x1234' + params.addr).then((r) => r.json());
+  // const res = await fetch('http://blockcamp-api.lt.airin1.com/gnosis/treasuryHistories/' + getDaosAddress(params.name)).then((res) => res.json());
+ 
+  const res = params;
+  console.log(res.name);
+  return {
+    // props: { res: res },
+    props: { res: res.name },
+  };
+};
+// interface Props {
+//   addr: string;
+// }
+const Overview: NextPage = ({ res }) => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const router: NextRouter = useRouter();
+  console.log(res);
+
+  const chart = [
     {
       "date": "2020-10-20T00:32:42Z",
       "value": 1848606.666666727
@@ -1536,11 +1523,73 @@ export default () => {
     setIsReady(true)
   }, [])
 
-  return (
-    <div>
+  const columns = [
+    {
+        title: 'Address',
+        dataIndex: 'address',
+        key: 'address',
+    },
+    {
+      title: 'Type',
+      dataIndex: 'type',
+      key: 'type',
+    },
+    {
+      title: 'Value(USD)',
+      dataIndex: 'value',
+      key: 'value',
+    },
+    {
+      title: 'Chain',
+      dataIndex: 'chain',
+      key: 'chain',
+    },
+  ];
+
+  type TreasuryAddress = {
+    key: string,
+    address: string,
+    type: string,
+    value: string,
+    chain: string,
+  };
+
+  const [data, setData] =  useState<TreasuryAddress[]>([]);
+
+  useEffect(() => {
+    setName(res);
+    setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
+    const temp = {
+      key: '1',
+      address: '0x19B3Eb3Af5D93b77a5619b047De0EED7115A19e7',
+      type: 'liquid',
+      value: '$40M',
+      chain: 'Ethereum',
+    }
+    setData([...data, temp]);
+  }, []);
+
+  return(
+    <div style={{padding: "50px"}}>      
+      <a onClick={() => 
+        window.open("https://etherscan.io/token/" + getTokenAddress(name))}
+        style={{fontSize: "20px"}}
+      >
+        {name}
+      </a>
+      <p>{description}</p>
+      <h2>Revenue Model Of</h2>
+      <Row>
+          <Col span={12} style={{paddingRight: "20px"}}>
+              <Card>Placeholder</Card>
+          </Col>
+          <Col span="auto">
+              <Card>
+              <div>
       {
         isReady && (
-          <AreaChart width={730} height={250} data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <AreaChart width={730} height={250} data={chart} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          {/* <AreaChart width={730} height={250} data={res} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}> */}
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -1551,71 +1600,27 @@ export default () => {
                 <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
               </linearGradient>
             </defs>
+            {/* <XAxis dataKey={res.date} /> */}
             <XAxis dataKey="date" />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
+            {/* <Area type="monotone" dataKey={res.value} stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" /> */}
             <Area type="monotone" dataKey="value" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
             {/* <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" /> */}
           </AreaChart>
         )
       }
     </div>
+              </Card>
+          </Col>
+      </Row>
+      <h2>Treasury Addresses</h2>
+      <Table columns={columns} dataSource={data} size="middle" onRow={(r) => ({
+            onClick: () => (window.location.href = '/gnosis/'+ r.address)
+          })} />
+    </div>
   );
 };
-// class Chart extends React.Component {
-//   data = [
-//     {
-//       name: 'Jan 2019',
-//       'Product A': 3432,
-//       'Procuct B': 2342,
-//     },
-//     {
-//       name: 'Feb 2019',
-//       'Product A': 2342,
-//       'Procuct B': 7746,
-//     },
-//     {
-//       name: 'Mar 2019',
-//       'Product A': 4565,
-//       'Procuct B': 2556,
-//     },
-//     {
-//       name: 'Apr 2019',
-//       'Product A': 6654,
-//       'Procuct B': 4465,
-//     },
-//     {
-//       name: 'May 2019',
-//       'Product A': 8765,
-//       'Procuct B': 5553,
-//     },
-//   ];
-//   render() {
-//     // if (typeof window === 'undefined') return <div></div>
 
-//     return (
-//       <AreaChart width={730} height={250} data={this.data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
-//         <defs>
-//           <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-//             <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
-//             <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
-//           </linearGradient>
-//           <linearGradient id="colorPv" x1="0" y1="0" x2="0" y2="1">
-//             <stop offset="5%" stopColor="#82ca9d" stopOpacity={0.8} />
-//             <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
-//           </linearGradient>
-//         </defs>
-//         <XAxis dataKey="name" />
-//         <YAxis />
-//         <CartesianGrid strokeDasharray="3 3" />
-//         <Tooltip />
-//         <Legend />
-//         <Area type="monotone" dataKey="Product A" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
-//         <Area type="monotone" dataKey="Procuct B" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" />
-//       </AreaChart>
-//       // <div>aaa</div>
-//     );
-//   }
-// }
-// export default Chart;
+export default Overview;
