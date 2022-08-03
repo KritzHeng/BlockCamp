@@ -1,5 +1,9 @@
 import { useRouter, NextRouter } from 'next/router';
 import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
+import React, { useEffect, useState } from 'react';
+import {Modal, Button, Row, Col, Avatar, Table, Tag, Space} from 'antd';
+import 'antd/dist/antd.css';
+import { UserOutlined } from '@ant-design/icons';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -23,6 +27,8 @@ export const getStaticProps = async ({ params }: any) => {
 // }
 const Gnosis: NextPage = ({ res }) => {
   const router: NextRouter = useRouter();
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [viewMore, setViewMore] = useState(false);
   console.log(res)
 
   return (
@@ -31,7 +37,7 @@ const Gnosis: NextPage = ({ res }) => {
       {res.slice(0,100).map((item) =>{
         return(
           <div>
-              <h1>txHash: {item.txHash}</h1>
+              <h1>txHash: {item.safeTxHash}</h1>
               <h1>blockNumber: {item.blockNumber}</h1>
           
               {/*item.confirmations && <div><h1>{item.confirmations.length}
