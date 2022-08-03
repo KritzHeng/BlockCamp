@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {Modal, Button, Row, Col, Avatar, Table, Tag, Space} from 'antd';
 import 'antd/dist/antd.css';
 import { UserOutlined } from '@ant-design/icons';
@@ -38,7 +38,7 @@ const Transactions = () => {
       submissionDate: '2022-07-20T14:28:56.463872Z',
       modified: '2022-07-22T00:50:48.222227Z',
       blockNumber: 15189304,
-      transactionHash: '0x2cdebe25a1d2e9a6fb20d58377e996e0fb6ec6bfac41dedd3a8a2200a270b2fe',
+      transactionHash: '0x2cdebe25a1d2e9a6fb20d58377e996e0fb6ec6bfac41dedd3a8a2200a270b2ff',
       safeTxHash: '0x48aa95f8b310caa08b99017332fd679feb001d4a66c558303b62c808be77c9a0',
       executor: '0x4bb4c1B0745ef7B4642fEECcd0740deC417ca0a0',
       isExecuted: true,
@@ -53,7 +53,7 @@ const Transactions = () => {
       confirmationsRequired: 3,
       confirmations: [
         {
-          owner: '0x4bb4c1B0745ef7B4642fEECcd0740deC417ca0a0',
+          owner: '0x4bb4c1B0745ef7B4642fEECcd0740deC417ca0a2',
           submissionDate: '2022-07-20T14:28:56.486394Z',
           transactionHash: null,
           signature:
@@ -108,7 +108,7 @@ const Transactions = () => {
       gasPrice: '0',
       refundReceiver: '0x0000000000000000000000000000000000000000',
       nonce: 1987,
-      executionDate: '2022-07-22T00:47:47Z',
+      executionDate: '2022-07-22T00:47:47A',
       submissionDate: '2022-07-20T14:28:56.463872Z',
       modified: '2022-07-22T00:50:48.222227Z',
       blockNumber: 15189304,
@@ -174,23 +174,37 @@ const Transactions = () => {
 
   const columns = [
     {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text) => <a>{text}</a>,
+      title: 'Execution Date',
+      dataIndex: 'date',
+      key: 'date',
     },
     {
-      title: 'Age',
-      dataIndex: 'age',
-      key: 'age',
+      title: 'Activity',
+      dataIndex: 'activity',
+      key: 'activity',
     },
     {
-      title: 'Address',
+      title: 'Interacted Address',
       dataIndex: 'address',
       key: 'address',
     },
     {
-      title: 'Tags',
+      title: 'Address Type',
+      dataIndex: 'addresstype',
+      key: 'addresstype',
+      render: (_, { addresstype }) => (
+        <>
+          <Button shape="circle" type="primary" onClick={() => showModal(addresstype)} icon={<UserOutlined />}/>
+        </>
+      ),
+    },
+    {
+      title: 'Transfer',
+      dataIndex: 'transfer',
+      key: 'transfer',
+    },
+    {
+      title: 'Frequency',
       key: 'tags',
       dataIndex: 'tags',
       render: (_, { tags }) => (
@@ -212,41 +226,15 @@ const Transactions = () => {
       ),
     },
     {
-      title: 'Action',
-      key: 'action',
-      render: (_, record) => (
-        <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
-        </Space>
-      ),
+      title: 'Remark',
+      dataIndex: 'remark',
+      key: 'remark',
     },
   ];
-  const data = [
-    {
-      key: '1',
-      name: 'John Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      name: 'Jim Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      name: 'Joe Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
+  const [currModalInfo, setCurrModalInfo] = useState(ob[0]);
 
-  const showModal = () => {
+  const showModal = (e) => {
+    setCurrModalInfo(e);
     setIsModalVisible(true);
   };
 
@@ -258,42 +246,63 @@ const Transactions = () => {
     setIsModalVisible(false);
   };
 
+  const [data, setData] = useState([
+    { 
+      key: ob[0].transactionHash,
+      date: ob[0].executionDate,
+      activity: 'test 2',
+      address: '0x...',
+      addresstype: ob[0],
+      transfer: 'test',
+      tags: ['cat', 'giraffe'],
+      remark: 'test',
+    },
+  ]);
+
+  useEffect(() => {
+    for (var i = 1; i < ob.length; i++) {
+      const temp = { 
+        key: ob[i].transactionHash,
+        date: ob[i].executionDate,
+        activity: 'test 2',
+        address: '0x...',
+        addresstype: ob[i],
+        transfer: 'test',
+        tags: ['cat', 'giraffe'],
+        remark: 'test',
+      }
+      setData([...data, temp]);
+    }
+  }, []);
+
   return (
-    <div>
-      {ob.map((e) => {
-        return (
-          <div key={e.safe}>
-            <h1>Receiver: {e.to}</h1>
-            <Button shape="circle" type="primary" onClick={showModal} icon={<UserOutlined />}/>
-            <Modal 
-              title={e.confirmations.length+" Signers "+e.confirmationsRequired+" Required"} 
-              visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={800}
-            >
-                  {e.confirmations.map((item) => {
-                    return (
-                      <Row style={{paddingBlock: '25px'}}>
-                        <Col span={6} style={{textAlign: 'right', paddingRight: '30px'}}>
-                          <Avatar size={64} icon={<UserOutlined />}/>
-                        </Col>
-                        <Col span={18}>
-                          <div>
-                            <h1>Owner: {item.owner}</h1>
-                            <h1>Date: {item.submissionDate.slice(0, 10)}</h1>
-                            <h1>
-                              Signature: {viewMore ? item.signature:item.signature.slice(0,40)+"..."}
-                              <a onClick={()=>setViewMore(true)}>{viewMore ? "":"view more"}</a>
-                            </h1>
-                            <h1>Signature Type: {item.signatureType}</h1>
-                          </div>
-                        </Col>
-                      </Row>
-                    );
-                  })}
-            </Modal>
-          </div>
-        );
-      })}
-      <Table columns={columns} dataSource={data} />
+    <div>      
+      <Table columns={columns} dataSource={data} style={{padding: "40px"}}/>
+      <Modal 
+        title={currModalInfo.confirmations.length+" Signers "+currModalInfo.confirmationsRequired+" Required"} 
+        visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} width={800}
+      >
+            {currModalInfo.confirmations.map((item) => {
+              return (
+                <Row style={{paddingBlock: '25px'}} key={item.owner}>
+                  <Col span={6} style={{textAlign: 'right', paddingRight: '30px'}}>
+                    <Avatar size={64} icon={<UserOutlined />}/>
+                  </Col>
+                  <Col span={18}>
+                    <div>
+                      <h1>Owner: {item.owner}</h1>
+                      <h1>Date: {item.submissionDate.slice(0, 10)}</h1>
+                      <h1>
+                        Signature: {viewMore ? item.signature:item.signature.slice(0,40)+"..."}
+                        <a onClick={()=>setViewMore(true)}>{viewMore ? "":"view more"}</a>
+                      </h1>
+                      <h1>Signature Type: {item.signatureType}</h1>
+                    </div>
+                  </Col>
+                </Row>
+              );
+            })}
+      </Modal>
     </div>
   );
 };

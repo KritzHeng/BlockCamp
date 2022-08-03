@@ -3,7 +3,7 @@ import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { name: 'Sushiswap' } }, { params: { name: 'Balancer' } }, { params: { name: '' } }],
+    paths: [{ params: { name: 'sushiswap' } }, { params: { name: 'balancer' } }, { params: { name: '' } }],
     fallback: false, // fallback is set to false because we already know the slugs ahead of time
   };
 };
