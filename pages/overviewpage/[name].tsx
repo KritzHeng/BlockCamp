@@ -71,7 +71,7 @@ const Overview: NextPage = ({ res }) => {
       value: 'test',
       chain: 'test',
     }
-    setData([...data, temp]);
+    setData(data => [...data, temp]);
   }, []);
 
   return(
