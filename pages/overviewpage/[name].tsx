@@ -3,7 +3,10 @@ import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import React, { useEffect, useState } from 'react';
 import {Card, Row, Col, Table} from 'antd';
 import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+
 import { getDaosAddress } from "../../contants/daoProject"
+
+import { getTokenAddress } from '../../contants/mapToken';
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
@@ -1558,17 +1561,22 @@ const Overview: NextPage = ({ res }) => {
     setDescription("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.");
     const temp = {
       key: '1',
-      address: 'test',
-      type: 'test',
-      value: 'test',
-      chain: 'test',
+      address: '0x10A19e7eE7d7F8a52822f6817de8ea18204F2e4f',
+      type: 'liquid',
+      value: '$40M',
+      chain: 'Ethereum',
     }
-    setData(data => [...data, temp]);
+    setData([...data, temp]);
   }, []);
 
   return(
     <div style={{padding: "50px"}}>      
-      <h3>{name}</h3>
+      <a onClick={() => 
+        window.open("https://etherscan.io/token/" + getTokenAddress(name))}
+        style={{fontSize: "20px"}}
+      >
+        {name}
+      </a>
       <p>{description}</p>
       <h2>Revenue Model Of</h2>
       <Row>
