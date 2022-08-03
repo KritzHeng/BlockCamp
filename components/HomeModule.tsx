@@ -125,7 +125,7 @@ const HomeModule = () => {
           })} /> */}
           
 <Table columns={columns} dataSource={[item]} size="middle" onRow={(r) => ({
-            onClick: () => (console.log('sdfsf'))
+            onClick: () => (window.location.href = ''+r.url)
           })} />
                 {/* </Link> */}
               </div>

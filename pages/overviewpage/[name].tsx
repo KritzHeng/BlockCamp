@@ -3,20 +3,22 @@ import { NextPage, GetStaticProps, GetStaticPaths } from 'next';
 import React, { useEffect, useState } from 'react';
 import {Card, Row, Col, Table} from 'antd';
 import { AreaChart, Area, YAxis, XAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { getDaosAddress } from "../../contants/daoProject"
 
 export const getStaticPaths: GetStaticPaths = async () => {
   return {
-    paths: [{ params: { name: 'sushiswap' } }, { params: { name: 'balancer' } }, { params: { name: '' } }],
+    paths: [{ params: { name: 'sushiswap'} }, { params: { name: 'balancer' } }, { params: { name: '' } }],
     fallback: false, // fallback is set to false because we already know the slugs ahead of time
   };
 };
-
 export const getStaticProps = async ({ params }: any) => {
   // const transactiondetails = await fetch('0x1234' + params.addr).then((r) => r.json());
-  //   const res = await fetch('http://blockcamp-api.lt.airin1.com/gnosis/transactions/' + params.addr).then((res) => res.json());
+  // const res = await fetch('http://blockcamp-api.lt.airin1.com/gnosis/treasuryHistories/' + getDaosAddress(params.name)).then((res) => res.json());
+ 
   const res = params;
-  console.log(res);
+  console.log(res.name);
   return {
+    // props: { res: res },
     props: { res: res.name },
   };
 };
@@ -1579,6 +1581,7 @@ const Overview: NextPage = ({ res }) => {
       {
         isReady && (
           <AreaChart width={730} height={250} data={chart} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          {/* <AreaChart width={730} height={250} data={res} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}> */}
             <defs>
               <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8} />
@@ -1589,10 +1592,12 @@ const Overview: NextPage = ({ res }) => {
                 <stop offset="95%" stopColor="#82ca9d" stopOpacity={0} />
               </linearGradient>
             </defs>
+            {/* <XAxis dataKey={res.date} /> */}
             <XAxis dataKey="date" />
             <YAxis />
             <CartesianGrid strokeDasharray="3 3" />
             <Tooltip />
+            {/* <Area type="monotone" dataKey={res.value} stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" /> */}
             <Area type="monotone" dataKey="value" stroke="#8884d8" fillOpacity={1} fill="url(#colorUv)" />
             {/* <Area type="monotone" dataKey="pv" stroke="#82ca9d" fillOpacity={1} fill="url(#colorPv)" /> */}
           </AreaChart>

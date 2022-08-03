@@ -25,7 +25,7 @@ const SearchBar = () => {
     <div>
       <div className="items-center px-4 flex justify-center">
         <Search
-          placeholder="input search text"
+          placeholder="search address name or address"
           onSearch={onSearch}
           style={{
             width: 500,
