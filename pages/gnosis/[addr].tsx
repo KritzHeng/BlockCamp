@@ -37,7 +37,7 @@ const Gnosis: NextPage = ({ res }) => {
               {item.confirmations && <div><h1>{item.confirmations.length}
               
               </h1>
-              {item.confirmations.map(e=>())}
+              {/* {item.confirmations.map(e=>())} */}
               </div> }
 
               {/* <h1>{item.confirmations.length}</h1> */}
