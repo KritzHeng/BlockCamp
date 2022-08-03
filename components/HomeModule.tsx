@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Navbar from './Navbar';
-import { Table, Image } from 'antd';
+import { Table, Image, Avatar } from 'antd';
 import 'antd/dist/antd.css';
 import Link from 'next/link'; 
 
@@ -12,7 +12,7 @@ const HomeModule = () => {
     {
       title: 'Logo',
       dataIndex: 'logo',
-      render: (url) => <Image src={url} height={50} />,
+      render: (url) => <Avatar src={url} size={50}/>,
     },
     {
       title: 'Name',
